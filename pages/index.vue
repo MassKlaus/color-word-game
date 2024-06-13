@@ -177,6 +177,8 @@ function generateTargets() {
 }
 
 function avoidCollisions() {
+    let collision = false;
+
     for (const target of targets.value) {
         for (const button of targets.value) {
             if (button == target) {
@@ -188,10 +190,15 @@ function avoidCollisions() {
             if (length < 30) {
                 button.x += 20;
                 button.y += 20;
-                target.x += 20;
-                target.y += 20;
-            }
+                target.x -= 20;
+                target.y -= 20;
+                collision = true;
+            }            
         }
+    }
+
+    if (collision) {
+        avoidCollisions();
     }
 }
 
