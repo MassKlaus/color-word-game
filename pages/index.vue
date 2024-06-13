@@ -2,7 +2,7 @@
     <div class="h-screen p-4 grid grid-rows-[50px_1fr] items-center bg-gray-50 dark:bg-slate-950">
         <div class="flex justify-between items-center">
             <ModeToggle />
-            <div :class="randomValue(values.color)" class="text-xl">
+            <div v-if="playing" :class="randomValue(values.color)" class="text-xl" :key="goal">
                 {{ properText(goalText ?? "") }}
             </div>
             <Button v-if="playing" @click="stopGame" variant="destructive">
@@ -129,6 +129,7 @@ function generateTargets() {
     const height = gameArea.value.clientHeight;
 
     const targetGoal = randomValue(values.color)
+    goal.value = targetGoal;
 
     const newTargets: TextTarget[] = [];
     for (let index = 0; index < totaltargets; index++) {
